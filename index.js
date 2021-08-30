@@ -77,15 +77,13 @@ app.post('/contactpost',(req,res)=>{
      db.query(sql,obj,(err,result)=>{
         if(err){
           res.status(409).send({
-            message:"data not updated",
-            sqlMessage:err.sqlMessage,
-            errorcode:err.errno
+            message:"DATA NOT UPDATED",
           })
         }
         else{
-          res.status(200).send({
-              message:"data updated"
-          });
+            res.status(200).send({
+                message:"DATA INSERTED",     
+            })
 
         }
     })  
@@ -97,7 +95,7 @@ app.get('/getemp',(req,res)=>{
    db.query(sql,(err,result)=>{
    if(err){
        res.status(404).send({
-           message:"Table doesn't exist",
+           message:"TABLE DOESN'T EXIST",
            sqlMessage:err.sqlMessage,
            errorcode:err.errno                           //work completed
        })
@@ -105,7 +103,7 @@ app.get('/getemp',(req,res)=>{
    else{
     //    console.log("315",result)
        res.status(200).send({
-           message:"data found",
+           message:"DATA FETCHED",
            data: result
        })
    }
@@ -122,7 +120,7 @@ app.get('/getnoemp',(req,res)=>{
        // res.send(result)
        if(err){
            res.status(404).send({
-               message:"Table does'nt exist",
+               message:"TABLE DOESN'T EXIST",
                sqlMessage:err.sqlMessage,
                errorcode:err.errno                           //work completed
            })
@@ -130,7 +128,7 @@ app.get('/getnoemp',(req,res)=>{
        else{
            res.status(200).send({
                
-               message:"data fetched",
+               message:"DATA FETCHED",
                data:result
            })
        }
@@ -143,21 +141,21 @@ app.get('/getemp/:id',(req,res)=>{
    db.query(sql,(err,result)=>{
        if(err){
            res.status(404).send({
-               message:"Table does'nt exist",
+               message:"TABLE DOESN'T EXIST",
                sqlMessage:err.sqlMessage,
                errorcode:err.errno                           //work completed
            })
          }
        else if(result.length===0){
         res.status(404).send({
-            message:"data does'nt exist",
+            message:"DATA NOT FOUND",
             data:result                         //work completed
         })
        }
        else{
            console.log(result)
            res.status(200).send({
-               message:"data fetched",
+               message:"DATA FETCHED",
                data:result
            })
        }
@@ -170,20 +168,20 @@ app.delete('/deleteemp/:id',(req,res)=>{
     db.query(sql,(err,result)=>{
        if(err){
            res.status(404).send({
-               message:"Table does'nt exist",
+               message:"TABLE DOESN'T EXIST",
                sqlMessage:err.sqlMessage,
                errorcode:err.errno                           //work completed
            })
          }
        else if(result.affectedRows===0){
            res.status(404).send({
-               message:"data does'nt exist",
+               message:"DATA NOT FOUND",
                data:result
            })
        }
        else{
            res.status(200).send({
-               message:"data deleted",
+               message:"DATA DELETED",
                data:result
            })
        }
@@ -207,22 +205,22 @@ app.post('/apppost',(req,res)=>{
         if(err){
                if(err.code==='ER_NO_SUCH_TABLE'){
                   res.status(404).send({
-                  message:"Table does'nt exist",
+                  message:"TABLE DOESN'T EXIST",
                   sqlMessage:err.sqlMessage,
                   errorcode:err.errno                           //work completed
                })
           }
         else if(err.code==='ER_DUP_ENTRY'){
-            console.log("216" ,result)
+          
             res.status(409).send({
-                message:"duplicate entery",
+                message:"DUPLICATE ENTRY",
             })
         }
        }
         else{
             console.log("222" ,result)
             res.status(200).send({
-                message:"data inserted",     
+                message:"DATA INSERTED ",     
             })
         }
    })  
@@ -233,7 +231,7 @@ app.put('/putemp',(req,res)=>{
    db.query(sql,(err,result)=>{
        console.log("err ",err," result ",result)
         res.status(200).send({
-            message:"data inserted",
+            message:"DATA UPDATED",
             data:result
         })
     
